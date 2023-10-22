@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import {
+  FormBtn,
+  FormContainer,
+  FormInput,
+  FormInputLabel,
+} from './Form.styled';
 
 export default class Form extends Component {
   state = {
@@ -30,9 +36,9 @@ export default class Form extends Component {
 
   render() {
     return (
-      <form onSubmit={this.formSubmit}>
-        <label htmlFor={this.props.nameId}> Name</label>
-        <input
+      <FormContainer onSubmit={this.formSubmit}>
+        <FormInputLabel htmlFor={this.props.nameId}> Name</FormInputLabel>
+        <FormInput
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -42,8 +48,8 @@ export default class Form extends Component {
           onChange={this.handlerFormInputChange}
           id={this.props.nameId}
         />
-        <label htmlFor={this.props.telID}> Number</label>
-        <input
+        <FormInputLabel htmlFor={this.props.telID}> Number</FormInputLabel>
+        <FormInput
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
@@ -53,8 +59,8 @@ export default class Form extends Component {
           onChange={this.handlerFormInputChange}
           id={this.props.telID}
         />
-        <button type="submit">Add contact</button>
-      </form>
+        <FormBtn type="submit">Add contact</FormBtn>
+      </FormContainer>
     );
   }
 }

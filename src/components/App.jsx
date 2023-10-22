@@ -64,8 +64,10 @@ export default class App extends Component {
             ntelIdameId={this.telId}
           />
         </Section>
-        <Filter value={filter} onChange={this.handlerFilterChange} />
-        <Section title="Contacts">
+
+        <Section>
+          <h2>Contacts</h2>
+          <Filter value={filter} onChange={this.handlerFilterChange} />
           <ContactList
             contacts={filteredContact}
             handlerDeleteContact={this.handlerDeleteContact}

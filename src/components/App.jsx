@@ -14,17 +14,16 @@ export default class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
   };
-
-  nameId = nanoid();
-  telId = nanoid();
 
   addContact = ({ name, number }) => {
     const { contacts } = this.state;
 
-    if (contacts.find(contact => contact.name === name))
+    if (
+      contacts.find(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    )
       return alert(`${name} is already in contscts`);
 
     const addedContact = {
@@ -38,10 +37,17 @@ export default class App extends Component {
     }));
   };
 
-  // Filter update
   handlerFilterChange = event => {
     this.setState({ filter: event.currentTarget.value });
   };
+
+  getFilteredContacts() {
+    const { contacts, filter } = this.state;
+    const normalizedFilter = filter.toLowerCase().trim();
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+  }
 
   handlerDeleteContact = contactId => {
     this.setState(prevState => ({
@@ -50,24 +56,24 @@ export default class App extends Component {
   };
 
   render() {
-    const { contacts, filter } = this.state;
-    const notmalazedFilter = filter.toLocaleLowerCase().trim();
-    const filteredContact = contacts.filter(contact =>
-      contact.name.toLocaleLowerCase().includes(notmalazedFilter)
-    );
+    const filteredContact = this.getFilteredContacts();
+
     return (
       <>
         <Section title="Phonebook">
           <Form
             onFormSubmit={this.addContact}
             nameId={this.nameId}
-            ntelIdameId={this.telId}
+            telId={this.telId}
           />
         </Section>
 
         <Section>
           <h2>Contacts</h2>
-          <Filter value={filter} onChange={this.handlerFilterChange} />
+          <Filter
+            value={this.state.filter}
+            onChange={this.handlerFilterChange}
+          />
           <ContactList
             contacts={filteredContact}
             handlerDeleteContact={this.handlerDeleteContact}

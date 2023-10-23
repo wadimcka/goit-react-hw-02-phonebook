@@ -13,11 +13,8 @@ export default class Form extends Component {
   };
 
   handlerFormInputChange = event => {
-    const { name, number, value } = event.target;
-    console.log(event.target.name);
-    console.log(event.target.value);
+    const { name, value } = event.target;
     this.setState({ [name]: value });
-    this.setState({ [number]: value });
   };
 
   formSubmit = event => {
